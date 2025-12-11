@@ -552,8 +552,8 @@ async function handleClearCache() {
               <i class="fab fa-qq text-white"></i>
             </div>
             <div>
-              <p class="text-slate-600 dark:text-white/50 text-xs">官方Q群</p>
-              <p class="text-slate-800 dark:text-white font-mono text-sm">1029148488</p>
+              <p class="text-slate-600 dark:text-white/50 text-xs">官方QQ</p>
+              <p class="text-slate-800 dark:text-white font-mono text-sm">1757239496</p>
             </div>
           </div>
         </div>
