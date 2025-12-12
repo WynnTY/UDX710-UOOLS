@@ -18,7 +18,7 @@ static wifi_config_t s_wifi = {
   .ssid = "UDX710-5G",
   .key = "12345678",
   .mode = "5G",
-  .channel = 6,
+  .channel = 149,
   .encryption = "WPA2-PSK",
   .enabled = true
 };
