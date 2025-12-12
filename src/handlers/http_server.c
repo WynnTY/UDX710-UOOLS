@@ -18,6 +18,7 @@
 #include "reboot.h"
 #include "charge.h"
 #include "sms.h"
+#include "wifi.h"
 
 /* 嵌入式文件系统声明 (packed_fs.c) */
 extern int serve_packed_file(struct mg_connection *c, struct mg_http_message *hm);
@@ -63,6 +64,8 @@ static void http_handler(struct mg_connection *c, int ev, void *ev_data) {
         }
 
         /* API 路由 */
+        handle_wifi_request(c, hm);
+        
         if (mg_match(hm->uri, mg_str("/api/info"), NULL)) {
             handle_info(c, hm);
         }
