@@ -8,9 +8,12 @@
 #include <string.h>
 #include "handlers/http_server.h"
 #include "system/ofono.h"
+#include "wifi.h"
 
 int main(int argc, char *argv[]) {
     const char *port = "6677";
+
+    wifi_init();
 
     /* 解析命令行参数 */
     if (argc > 1) {
