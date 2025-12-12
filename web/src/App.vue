@@ -12,6 +12,7 @@ import ATDebug from './components/ATDebug.vue'
 import WebTerminal from './components/WebTerminal.vue'
 import GlobalToast from './components/GlobalToast.vue'
 import GlobalConfirm from './components/GlobalConfirm.vue'
+import WiFiManager from './components/WiFiManager.vue'
 
 // 当前激活的菜单
 const activeMenu = ref('monitor')
@@ -100,6 +101,7 @@ provide('loading', loading)
 // 菜单配置
 const menuItems = [
   { id: 'monitor', label: '系统监控', icon: 'fa-tachometer-alt', color: 'from-blue-500 to-cyan-400' },
+  { id: 'wifi', label: 'WIFI管理', icon: 'fa-wifi-wired', color: 'from-purple-500 to-pink-400' },
   { id: 'network', label: '网络管理', icon: 'fa-network-wired', color: 'from-purple-500 to-pink-400' },
   { id: 'advanced', label: '高级网络', icon: 'fa-tower-cell', color: 'from-cyan-500 to-blue-500' },
   { id: 'sms', label: '短信管理', icon: 'fa-envelope', color: 'from-emerald-500 to-teal-400' },
@@ -306,6 +308,7 @@ onUnmounted(() => {
       <div class="p-3 md:p-6">
         <Transition name="fade" mode="out-in">
           <SystemMonitor v-if="activeMenu === 'monitor'" key="monitor" />
+          <WiFiManager v-else-if="activeMenu === 'wifi'" key="wifi" />
           <NetworkManager v-else-if="activeMenu === 'network'" key="network" />
           <AdvancedNetwork v-else-if="activeMenu === 'advanced'" key="advanced" />
           <SmsManager v-else-if="activeMenu === 'sms'" key="sms" />
