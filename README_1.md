@@ -1,7 +1,5 @@
 # 5G MiFi Dashboard(UDX710)
 
-[🇨🇳 中文文档](README_CN.md)
-
 A web-based management interface for 5G MiFi devices running on embedded Linux systems (aarch64).
 
 > ⭐ **If you find this project useful, please give it a star!** It took a week of hard work to build this backend. Your support means a lot!
@@ -207,3 +205,4 @@ This project is licensed under **GPLv3 License**.
 Free to use, modify and distribute, but please keep the author attribution.
 
 Welcome to submit Issues / Pull Requests to improve the project 💡
+
