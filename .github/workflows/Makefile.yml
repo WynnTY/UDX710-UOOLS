@@ -1,0 +1,75 @@
+name: Cross-compile for aarch64
+
+on:
+  push:
+    branches: [ "main", "SZ50" ]  # 监听 main 和 SZ50 分支
+  pull_request:
+    branches: [ "main", "SZ50" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest  # 交叉编译在 Linux 环境更便捷
+    strategy:
+      matrix:
+        branch: [ "main", "SZ50" ]  # 同时编译两个分支
+
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        ref: ${{ matrix.branch }}  # 切换到当前分支
+
+    - name: Install dependencies
+      run: |
+        # 安装交叉编译器
+        sudo apt-get update
+        sudo apt-get install -y aarch64-linux-gnu-gcc aarch64-linux-gnu-g++
+        
+        # 安装 GLib 交叉编译库（针对 aarch64）
+        sudo apt-get install -y libglib2.0-dev:arm64 libgirepository1.0-dev:arm64
+        
+        # 安装前端依赖（Node.js）
+        curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -
+        sudo apt-get install -y nodejs
+
+    - name: Build frontend
+      run: |
+        cd web
+        npm install
+        npm run build  # 生成 web/dist 静态文件
+        cd ..
+
+    - name: Generate packed_fs.c (frontend to C)
+      run: |
+        cd src
+        # 假设项目有工具将 web/dist 打包为 packed_fs.c（根据 README 描述）
+        # 若不存在自动工具，需手动执行打包命令（例如使用 xxd 或自定义脚本）
+        ./pack_fs.sh  # 需确保项目中有此脚本，或替换为实际打包命令
+        cd ..
+
+    - name: Cross-compile backend
+      run: |
+        cd src
+        make clean  # 清理历史编译产物
+        make  # 使用 src/Makefile 交叉编译，目标为 aarch64-linux-gnu
+        cd ..
+
+    - name: Package as zip
+      run: |
+        # 根据分支名命名 zip 文件
+        if [ "${{ matrix.branch }}" = "main" ]; then
+          zip_name="udx710.zip"
+        else
+          zip_name="SZ50.zip"
+        fi
+        # 创建打包目录并复制产物
+        mkdir -p release
+        cp src/build/ofono-server release/
+        # 可选：复制前端静态文件（若未嵌入后端）
+        # cp -r web/dist release/
+        zip -r $zip_name release/
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: ${{ matrix.branch }}-build
+        path: ${{ matrix.branch == 'main' ? 'udx710.zip' : 'SZ50.zip' }}
