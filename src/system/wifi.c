@@ -17,7 +17,7 @@ typedef struct {
 static wifi_config_t s_wifi = {
   .ssid = "UDX710-5G",
   .key = "12345678",
-  .mode = "2.4G",
+  .mode = "5G",
   .channel = 6,
   .encryption = "WPA2-PSK",
   .enabled = true
