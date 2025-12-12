@@ -15,7 +15,7 @@ typedef struct {
 } wifi_config_t;
 
 static wifi_config_t s_wifi = {
-  .ssid = "UDX710-5G",
+  .ssid = "Z50-Air-5G",
   .key = "12345678",
   .mode = "5G",
   .channel = 149,
