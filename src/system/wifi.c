@@ -26,7 +26,7 @@ static wifi_config_t s_wifi = {
 // 模拟获取已连接客户端（实际应从系统接口读取）
 static void get_wifi_clients(struct mg_connection *c) {
   // 示例数据：实际应通过 iwlist 或系统 API 获取
-  const char *clients = "[{\"mac\":\"aa:bb:cc:dd:ee:ff\",\"ip\":\"192.168.1.2\",\"name\":\"手机设备\"}]";
+  const char *clients = "[{\"mac\":\"aa:bb:cc:dd:ee:ff\",\"ip\":\"192.168.0.2\",\"name\":\"手机设备\"}]";
   mg_http_reply(c, 200, "Content-Type: application/json\r\n", "{\"clients\":%s}", clients);
 }
 
